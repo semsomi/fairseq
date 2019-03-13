@@ -1,0 +1,22 @@
+cat news.2007.en.shuffled | python subword-nmt/subword_nmt/apply_bpe.py -c ./data-bin/wmt18ensemble/code | python interactive.py ./data-bin/wmt18ensemble --path ./data-bin/wmt18ensemble/wmt18.model1.pt --buffer-size 1024 --batch-size 16 --beam 5 --remove-bpe --replace-unk --beam 5 --source en --target de |grep -P '^H' |cut -f3- | sed 's/@@\s*//g' > translation.de
+
+
+
+cat news.2007.en.shuffled | python subword-nmt/subword_nmt/apply_bpe.py -c ./data-bin/wmt18ensemble/code | python interactive.py ./data-bin/wmt18ensemble --path ./data-bin/wmt18ensemble/wmt18.model1.pt --buffer-size 32 --batch-size 16 --beam 5 --remove-bpe --replace-unk --beam 5 --source en --target de 
+
+
+
+python generate.py ./data-bin/wmt18ensemble/test --path ./data-bin/wmt18ensemble/wmt18.model1.pt --batch-size 128 --beam 5 --raw-text --remove-bpe --replace-unk 
+
+
+python preprocess.py --output-format raw --only-source --workers 1 --target-lang de --source-lang en --testpref ./news --destdir ./data-bin/wmt18ensemble/test --srcdict ./data-bin/wmt18ensemble/dict.en.txt --tgtdict ./data-bin/wmt18ensemble/dict.de.txt 
+
+NORM_PUNC=mosesdecoder/scripts/tokenizer/normalize-punctuation.perl
+SCRIPTS=mosesdecoder/scripts
+TOKENIZER=mosesdecoder/scripts/tokenizer/tokenizer.perl
+
+cat news.en | mosesdecoder/scripts/tokenizer/normalize-punctuation.perl -l en | mosesdecoder/scripts/tokenizer/tokenizer.perl -a -l en -q | python subword-nmt/subword_nmt/apply_bpe.py -c ./data-bin/wmt18ensemble/code > news.bpe.en
+
+
+
+cat news.bpe.en | python interactive.py ./data-bin/wmt18ensemble --path ./data-bin/wmt18ensemble/wmt18.model1.pt --buffer-size 32 --batch-size 16 --beam 5 --remove-bpe --replace-unk --beam 5 --source en --target de 

@@ -15,7 +15,7 @@ NORM_PUNC=mosesdecoder/scripts/tokenizer/normalize-punctuation.perl
 SCRIPTS=mosesdecoder/scripts
 TOKENIZER=mosesdecoder/scripts/tokenizer/tokenizer.perl
 
-cat news.en | mosesdecoder/scripts/tokenizer/normalize-punctuation.perl -l en | mosesdecoder/scripts/tokenizer/tokenizer.perl -a -l en -q | python subword-nmt/subword_nmt/apply_bpe.py -c ./data-bin/wmt18ensemble/code > news.bpe.en
+cat news.en | mosesdecoder/scripts/tokenizer/normalize-punctuation.perl -l en | mosesdecoder/scripts/tokenizer/tokenizer.perl -a -l en -q | python subword-nmt/subword_nmt/apply_bpe.py -c ./fairseq/data-bin/wmt18ensemble/code > news.bpe.en
 
 
 

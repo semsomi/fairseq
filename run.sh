@@ -49,7 +49,7 @@ then
 	echo "$SHARD_NAME found."
 else
 	echo "$SHARD_NAME not found, downloading..."
-	curl https://storage.googleapis.com/monok/shards/mono0 -o $SHARDS_DIR/$SHARD_NAME
+	curl https://storage.googleapis.com/monok/shards/mono$N -o $SHARDS_DIR/$SHARD_NAME
 fi
 
 

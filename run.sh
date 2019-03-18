@@ -63,5 +63,5 @@ python preprocess.py --output-format raw --only-source --workers 1 --target-lang
 
 python -u batch_generate.py $TEST --path $MODEL --batch-size 128 --beam 5 --raw-text --remove-bpe --replace-unk --task translation_mono --no-progress-bar | tee $TRANSLATIONS_DIR/translation.$N.output
 cat $TRANSLATIONS_DIR/translation.$N.output | grep -P '^S' | cut -f2- | sed 's/@@\s*//g' | sed 's/@ - @\s*//g'  > $TRANSLATIONS_DIR/translation.$N.$SOURCE_LANG
-cat $TRANSLATIONS_DIR/translation.$N.output | grep -P '^H' | cut -f3- | sed 's/@@\s*//g' | sed 's/@ - @\s*//g'  > $TRANSLATIONS_DIR/translation.$N.$TARGET_LANG
+cat $TRANSLATIONS_DIR/translation.$N.output | grep -P '^H' | cut -f3- | sed 's/@@\s*//g' | sed 's/@ - @\s*//g' | python addnoise.py   > $TRANSLATIONS_DIR/translation.$N.$TARGET_LANG
 

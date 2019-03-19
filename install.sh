@@ -14,8 +14,8 @@ echo 'Cloning Subword NMT repository (for BPE pre-processing)...'
 git clone https://github.com/rsennrich/subword-nmt.git
 
 curl https://storage.googleapis.com/monok/code -o data-bin/wmt18ensemble/code
-curl https://storage.googleapis.com/monok/dict.de.txt -o data-bin/wmt18ensemble/cdict.de.txt
-curl https://storage.googleapis.com/monok/dict.en.txt -o data-bin/wmt18ensemble/cdict.en.txt
+curl https://storage.googleapis.com/monok/dict.de.txt -o data-bin/wmt18ensemble/dict.de.txt
+curl https://storage.googleapis.com/monok/dict.en.txt -o data-bin/wmt18ensemble/dict.en.txt
 
 
 # sacrebleu -t wmt18 -l en-de --echo src > wmt18.en-de.en

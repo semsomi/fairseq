@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+
+  # translator:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - RABBITMQ_HOST=rabbitmq
+
+  #   command: ["python", "worker.py"]
+  #   volumes:
+  #     - .:/src
+  #   networks:
+  #     - internal
+# ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
+  # producer:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - RABBITMQ_HOST=rabbitmq
+
+  #   command: ["python", "producer.py"]
+  #   # volumes:
+  #   #   - .:/src
+  #   networks:
+  #     - internal
+# ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
+  
+# ########### RABBITMQ #################
+
+  rabbitmq:
+    image: rabbitmq:3.7-management-alpine
+    # container_name: fairseq_rabbitmq
+    ports:
+      - 5672:5672
+      - 15671:15671
+      - 15672:15672
+    volumes:
+      - ./rabbitmq-data/data:/var/lib/rabbitmq
+    networks:
+      - internal
+
+networks:
+    internal:
+        driver: bridge

@@ -116,3 +116,6 @@ data-bin/
 #Libs
 mosesdecoder/
 subword-nmt/
+
+# RabbitMQ
+rabbitmq-data/
